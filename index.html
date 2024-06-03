@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Example</title>
+</head>
+<body>
+    <h1>Dữ liệu từ API</h1>
+    <div id="data"></div>
+
+    <script>
+        // Hàm để gọi API và hiển thị dữ liệu
+        function fetchData() {
+            fetch('https://script.googleusercontent.com/macros/echo?user_content_key=5wm8ClL4FBTwygkZihXWbIy-qJS1vyBeG-nlCChnteYeE99jJNWR0WEtLRPD8H-xvPJxyCITnQud9ST9oJvQYMuUM191cQ8vm5_BxDlH2jW0nuo2oDemN9CCS2h10ox_1xSncGQajx_ryfhECjZEnHM08mYcFgxf4Mt-BzWWpfAO9n1RVCs1LSTj-ecCsyzetuILUGRBcapunsG1rS9jlkYZvBkxRuR-YETWkGGTD1AybvESVSs6Sdz9Jw9Md8uu&lib=M-W6HtSEfOHn6uQvWrUfZei3i7IZ4Q6DP')
+                .then(response => response.json())
+                .then(data => {
+                    // Xử lý dữ liệu trả về
+                    const dataDiv = document.getElementById('data');
+                    dataDiv.innerHTML = '<h2>Danh sách tài khoản</h2>';
+                    data.forEach(account => {
+                        dataDiv.innerHTML += `
+                            <p>Tài khoản: ${account.TaiKhoan}</p>
+                            <p>Mật khẩu: ${account.MatKhau}</p>
+                            <p>Số dư: ${account.SoDu}</p>
+                            <p>Tổng thu nhập: ${account.TongThuNhap}</p>
+                            <hr>
+                        `;
+                    });
+                })
+                .catch(error => {
+                    console.error('Có lỗi xảy ra khi lấy dữ liệu từ API:', error);
+                });
+        }
+
+        // Gọi hàm fetchData() khi trang web được tải
+        fetchData();
+    </script>
+</body>
+</html>

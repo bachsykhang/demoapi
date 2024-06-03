@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang chủ</title>
+</head>
+<body>
+    <h1>Trang chủ</h1>
+    <div id="accountInfo"></div>
+
+    <script>
+        // Xử lý hiển thị thông tin tài khoản
+        function displayAccountInfo() {
+            // Gọi API để lấy thông tin tài khoản
+            fetch('https://script.googleusercontent.com/macros/echo?user_content_key=5wm8ClL4FBTwygkZihXWbIy-qJS1vyBeG-nlCChnteYeE99jJNWR0WEtLRPD8H-xvPJxyCITnQud9ST9oJvQYMuUM191cQ8vm5_BxDlH2jW0nuo2oDemN9CCS2h10ox_1xSncGQajx_ryfhECjZEnHM08mYcFgxf4Mt-BzWWpfAO9n1RVCs1LSTj-ecCsyzetuILUGRBcapunsG1rS9jlkYZvBkxRuR-YETWkGGTD1AybvESVSs6Sdz9Jw9Md8uu&lib=M-W6HtSEfOHn6uQvWrUfZei3i7IZ4Q6DP')
+                .then(response => response.json())
+                .then(data => {
+                    // Hiển thị thông tin tài khoản
+                    const accountInfoDiv = document.getElementById('accountInfo');
+                    accountInfoDiv.innerHTML = '<h2>Thông tin tài khoản</h2>';
+                    data.forEach(account => {
+                        accountInfoDiv.innerHTML += `
+                            <p>Tài khoản: ${account.TaiKhoan}</p>
+                            <p>Số dư: ${account.SoDu}</p>
+                            <hr>
+                        `;
+                    });
+                })
+                .catch(error => {
+                    console.error('Có lỗi xảy ra khi lấy dữ liệu từ API:', error);
+                });
+        }
+
+        // Gọi hàm hiển thị thông tin tài khoản khi trang web được tải
+        displayAccountInfo();
+    </script>
+</body>
+</html>
